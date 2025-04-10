@@ -1,15 +1,20 @@
-# docker run \
-#   --mount type=bind,source=/home/scottsmith/Documents/permanent/talks,target=/mnt/talks/ \
-#   marpteam/marp-cli /mnt/talks/cognit-go/cognit-go.md --pdf -o /mnt/talks/cognit-go/cognit-go.pdf
+ROOT_DIR="/home/scottsmith/Projects/talks"
 
 cd cognit-go
-npx @marp-team/marp-cli@latest /home/scottsmith/Documents/permanent/talks/cognit-go/cognit-go.md \
+npx @marp-team/marp-cli@latest $ROOT_DIR/cognit-go/cognit-go.md \
   --allow-local-files \
-  -o /home/scottsmith/Documents/permanent/talks/cognit-go/cognit-go.html
+  -o $ROOT_DIR//cognit-go/cognit-go.html
 
-npx @marp-team/marp-cli@latest /home/scottsmith/Documents/permanent/talks/cognit-go/cognit-go.md \
+npx @marp-team/marp-cli@latest $ROOT_DIR/cognit-go/cognit-go.md \
   --allow-local-files \
   --pdf \
-  -o /home/scottsmith/Documents/permanent/talks/cognit-go/cognit-go.pdf
+  -o $ROOT_DIR/cognit-go/cognit-go.pdf
 
-xdg-open /home/scottsmith/Documents/permanent/talks/cognit-go/cognit-go.pdf
+npx @marp-team/marp-cli@latest $ROOT_DIR/dont-be-an-iter-hater/dont-be-an-iter-hater.md \
+  --allow-local-files \
+  -o $ROOT_DIR/dont-be-an-iter-hater/dont-be-an-iter-hater.html
+
+npx @marp-team/marp-cli@latest $ROOT_DIR/dont-be-an-iter-hater/dont-be-an-iter-hater.md \
+  --allow-local-files \
+  --pdf \
+  -o $ROOT_DIR/dont-be-an-iter-hater/dont-be-an-iter-hater.pdf
