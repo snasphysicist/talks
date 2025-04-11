@@ -1,6 +1,11 @@
 package main
 
+// import "dont-be-an-iter-hater/fallback"
+
 func main() {
-	setsMain()
-	infiniteMain()
+	// RangeOverSliceOneArityMain()
+	// RangeOverSliceTwoArityMain()
+	// SetsMain()
+	// InfiniteMain()
+	// fallback.FallbackMain()
 }

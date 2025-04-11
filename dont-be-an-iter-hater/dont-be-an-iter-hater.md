@@ -31,7 +31,15 @@ style: |
 
 # About Me
 
-// TODO
+Soon: Elixir & React at Doccla (fingers crossed)
+Currently: Clojure at Riverford Organic Farmers
+Previously: Go, Python, Java, C, etc...
+
+Big fan of functional programming (patterns/approaches)
+
+Growing towards lead/staff principal roles
+
+Aspiring conference speaker
 
 ---
 
@@ -46,8 +54,6 @@ style: |
     - Anatomy Of/Patterns In A Go Iterator
 - Examples
     - Iterating Over a Custom Type (`Set`)
-    - Searching in a Huge Text File
-    - Querying JSON in a Database Without Database Level JSON Support
     - Infinite Sequences
 
 ---
@@ -81,8 +87,10 @@ At least these languages have an iterator concept
 | ---------|----------|----------|----------
 | Java | `java.util.Iterator` | `next()` | `hasNext() == false`
 | Javascript | iterator protocol | `next().value` | `next().done`
-| Rust | `std::iter::Iterator` | 10 | £2.50
+| Rust | `std::iter::Iterator` | `next()` | `next() == None`
 | Python | `__iter__` / `__next__`| `__next__` | Raises `StopIteration` |
+
+Elixir & Clojure - it's surprisingly complicated...
 
 ---
 
@@ -93,11 +101,11 @@ At least these languages have an iterator concept
 One of three forms
 
 ```go
-func(func yield() boolean)
+func(func yield() bool)
 
-func(func yield(k K) boolean) -> iter.Seq[K]
+func(func yield(k K) bool) -> iter.Seq[K]
 
-func(func yield(k K, v V) boolean) -> iter.Seq2[K, V]
+func(func yield(k K, v V) bool) -> iter.Seq2[K, V]
 ```
 
 ---
@@ -125,6 +133,8 @@ That's a function which accepts a function, `yield`, which
 
 - accepts 0, 1 or 2 values which are assigned to loop variables
 - returns a boolean which communicates whether another value is required
+  - `true` -> another value please
+  - `false` -> no more values please
 
 ---
 
@@ -137,15 +147,15 @@ Demo
 # Reimplementing Range Over Slice
 
 ```go
-func OneArgumentIterator[T any](c []T) iter.Seq[int] {
+func OneArgumentSliceIterator[T any](c []T) iter.Seq[int] {
   i := 0
-  return func(yield func(int) boolean) {
+  return func(yield func(int) bool) {
     for {
       if i >= len(c) {
         return
       }
-      shouldStop := yield(i)
-      if shouldStop {
+      anotherValue := yield(i)
+      if !anotherValue {
         return
       }
       i++
@@ -161,19 +171,19 @@ Remember, one value `for` over a slice iterates over indices.
 # Anatomy Of An Iterator
 
 ```go
-func OneArgumentIterator[T any](c []T) iter.Seq[int] {
+func OneArgumentSliceIterator[T any](c []T) iter.Seq[int] {
   i := 0 // Vars keeping track of what you've already
          // iterated over must be declared 
          // outside the anonymous function & captured
-  return func(yield func(int) boolean) {
+  return func(yield func(int) bool) {
     for {
-      if i >= len(c) {  // - Natural exit condition for finite sequences
-        return          // | May be omitted for infinite sequences
-      }                 // -
-      shouldStop := yield(i) // Yield, passing value(s) to the for-range
-      if shouldStop { // - 
-        return        // | Exit when the loop requires no more values
-      }               // - 
+      if i >= len(c) { // - Natural exit condition for finite sequences 
+        return         // | May be omitted for infinite sequences
+      }                // -
+      anotherValue := yield(i) // Yield, passing value(s) to the for-range
+      if !anotherValue { // -
+        return           // | Exit when the loop requires no more values
+      }                  // - 
       i++
     }
   }
@@ -215,14 +225,14 @@ Demo
 ```go
 func TwoArgumentIterator[T any](c []T) iter.Seq2[int, T] {
   i := 0
-  return func(yield func(int, T) boolean) {
+  return func(yield func(int, T) bool) {
     for {
       if i >= len(c) {
         return
       }
       // Only difference is here, we call yield with two values
-      shouldStop := yield(i, c[i])
-      if shouldStop {
+      anotherValue := yield(i, c[i])
+      if !anotherValue {
         return
       }
       i++
@@ -243,16 +253,16 @@ Demo
 
 ```go
 // Special case for string keys
-func MapIterator[T any](m [string]T) iter.Seq2[string, T] {
+func MapIterator[T any](m map[string]T) iter.Seq2[string, T] {
   ks := keys(m)
   i := 0
-  return func(yield func(string, T) boolean) {
+  return func(yield func(string, T) bool) {
     for {
       if i >= len(ks) {
         return
       }
-      shouldStop := yield(ks[i], m[ks[i]])
-      if shouldStop {
+      anotherValue := yield(ks[i], m[ks[i]])
+      if !anotherValue {
         return
       }
       i++
@@ -266,7 +276,7 @@ func MapIterator[T any](m [string]T) iter.Seq2[string, T] {
 # Aside: Keys From Map Without Range
 
 ```go
-func keys[T any](m [string]T) []string {
+func keys[T any](m map[string]T) []string {
   vs := reflect.ValueOf(m).MapKeys()
   i := 0
   ks := make([]string, 0)
@@ -305,12 +315,6 @@ Lets consider how we can convert a slice to a set
 
 - eagerly
 - lazily
-
----
-
-# Querying JSON in a Database Without Database Level JSON Support
-
-// TODO
 
 ---
 
@@ -428,7 +432,7 @@ I would argue that the functional approach
 - reads more like natural language
 - therefore can be faster to understand
 
-Your mileage may vary - come debate me after the talk!
+Your mileage may vary - come discuss after the talk!
 
 ---
 

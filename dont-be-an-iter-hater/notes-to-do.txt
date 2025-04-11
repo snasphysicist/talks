@@ -1,7 +1,0 @@
-- Reimplementing range over slice
-- Diagram demonstrating sequence of events
-- Reimplementing range over slice with element number
-- Reimplementing range over map
-
-
-- Example for no-arg func (yield func() bool)?

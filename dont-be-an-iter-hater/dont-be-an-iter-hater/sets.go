@@ -1,116 +1,35 @@
 package main
 
 import (
-	"fmt"
-	"iter"
 	"math/rand"
 )
 
-func setsMain() {
-	// smallItems := []int{1, 2, 3, 4, 5, 1, 2, 3, 4, 6, 7, 9, 10, 8, 8, 5, 6, 7}
-	fmt.Println("Full Collection")
-	items := lotsOfItems()
-	fmt.Println(len(items))
-	fmt.Println("Eagerly Resolved")
-	fmt.Println(len(NewSet(items).Elements()))
-	fmt.Println("Lazily Resolved, Custom Iterator")
-	i := IterateOver(NewSet(items))
-	for p := 0; p < 5; p++ {
-		n, ok := i.Next()
-		if !ok {
-			break
-		}
-		fmt.Println(*n)
-	}
-	fmt.Println("Lazily Resolved, Standard Iterator")
-	count := 0
-	for e := range NewSet(items).Iterator() {
-		fmt.Println(e)
-		count++
-		if count == 5 {
-			break
-		}
-	}
+func SetsMain() {
+	// smallSlice := []int{1, 2, 3, 4, 5, 4, 6, 2, 3, 10, 4, 6, 7, 8, 8, 9}
+	// println("SMALL SLICE")
+	// for _, e := range NewSet(smallSlice).Elements() {
+	// 	println("Eager", e)
+	// }
+	// for e := range LazySetIterator(smallSlice) {
+	// 	println("Lazy", e)
+	// }
+	// println("MAKING BIG SLICE")
+	// bigSlice := LotsOfItems()
+	// println("MADE BIG SLICE")
+	// println("START RANGE-ING EAGER")
+	// for _, e := range NewSet(bigSlice).Elements() {
+	// 	println("Eager", e)
+	// }
+	// println("START RANGE-ING LAZY")
+	// for e := range LazySetIterator(bigSlice) {
+	// 	println("Lazy", e)
+	// }
 }
 
-type Set[E comparable] struct {
-	c []E
-}
-
-func NewSet[E comparable](c []E) *Set[E] {
-	return &Set[E]{c: c}
-}
-
-// eagerly build set
-
-func (s *Set[E]) Elements() []E {
-	m := make(map[E]struct{})
-	for _, e := range s.c {
-		m[e] = struct{}{}
-	}
-	unique := make([]E, 0)
-	for k := range m {
-		unique = append(unique, k)
-	}
-	return unique
-}
-
-// lazily build set
-
-type SetIterator[E comparable] struct {
-	s        *Set[E]
-	returned map[E]struct{}
-	current  int
-}
-
-func IterateOver[E comparable](s *Set[E]) *SetIterator[E] {
-	return &SetIterator[E]{s: s, returned: map[E]struct{}{}, current: 0}
-}
-
-func (i *SetIterator[E]) Next() (*E, bool) {
-	for {
-		if i.current >= len(i.s.c) {
-			return nil, false
-		}
-		next := i.s.c[i.current]
-		i.current++
-		if _, ok := i.returned[next]; !ok {
-			i.returned[next] = struct{}{}
-			return &next, true
-		}
-	}
-}
-
-// iter.Seq approach
-
-func (s *Set[E]) Iterator() iter.Seq[E] {
-	current := 0
-	returned := make(map[E]struct{})
-	return func(yield func(E) bool) {
-		// Not safe for concurrent access!
-		for {
-			if current >= len(s.c) {
-				return
-			}
-			next := s.c[current]
-			current++
-			if _, ok := returned[next]; ok {
-				continue
-			}
-			returned[next] = struct{}{}
-			if !yield(next) {
-				return
-			}
-		}
-	}
-}
-
-// lots of items!
-
-func lotsOfItems() []int {
+func LotsOfItems() []int {
 	i := func(yield func(int) bool) {
 		for i := 0; i < 100000000; i++ {
-			yield(int(rand.Int31n(1000)))
+			yield(int(rand.Int31n(11)))
 		}
 	}
 	items := make([]int, 0)
