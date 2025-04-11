@@ -50,9 +50,9 @@ func (s *Set[T]) Elements() []T {
 }
 
 func LazySetIterator[T comparable](c []T) iter.Seq[T] {
-	i := -1
-	m := make(map[T]struct{})
 	return func(yield func(v T) bool) {
+		i := -1
+		m := make(map[T]struct{})
 		for {
 			i++
 			if len(c) <= i {

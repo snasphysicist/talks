@@ -43,8 +43,8 @@ func repeatedly[T any](f func() T) iter.Seq[T] {
 }
 
 func take[T any](n int, it iter.Seq[T]) iter.Seq[T] {
-	count := 0
 	return func(yield func(T) bool) {
+		count := 0
 		for e := range it {
 			if count >= n {
 				return

@@ -9,8 +9,8 @@ func rangeOverSliceOneArityMain() {
 }
 
 func OneArgumentSliceIterator[T any](c []T) iter.Seq[int] {
-	i := 0
 	return func(yield func(int) bool) {
+		i := 0
 		for {
 			if i >= len(c) {
 				return

@@ -172,9 +172,8 @@ Remember, one value `for` over a slice iterates over indices.
 
 ```go
 func OneArgumentSliceIterator[T any](c []T) iter.Seq[int] {
-  i := 0 // Vars keeping track of what you've already
-         // iterated over must be declared 
-         // outside the anonymous function & captured
+  i := 0 // Vars keeping track of "already iterated over"
+         // These can be inside or outside of the anonymous function
   return func(yield func(int) bool) {
     for {
       if i >= len(c) { // - Natural exit condition for finite sequences 
@@ -203,7 +202,7 @@ Always have
 
 Almost certainly have
 
-- Some "closed over" way to keep track of what's been yielded
+- Some way to keep track of what's been yielded
 - Its own natural exit condition
 
 ---
@@ -442,14 +441,16 @@ For listening
 
 Please give brutally honest feedback and criticism
 
-Do you think this would make a good GopherCon talk? Come tell me (yes or no!)
+<hr>
 
-[uk.linkedin.com/in/scottnasmith](https://uk.linkedin.com/in/scottnasmith)
+Do you think this with more demos would make a good GopherCon talk? 
 
-[github.com/snasphysicist/](https://github.com/snasphysicist/)
+Come tell me (yes or no!)
 
-All my links, projects and thoughts at my website:
+<hr>
 
-[www.snas.pw](https://www.snas.pw)
+[uk.linkedin.com/in/scottnasmith](https://uk.linkedin.com/in/scottnasmith) | [github.com/snasphysicist/](https://github.com/snasphysicist/)
+
+Links, projects and thoughts at my website: [www.snas.pw](https://www.snas.pw)
 
 (Run as cheaply as possible with no guarantees on uptime)

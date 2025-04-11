@@ -18,9 +18,9 @@ func rangeMapMain() {
 }
 
 func mapIterator[T any](m map[string]T) iter.Seq2[string, T] {
-	ks := keys(m)
-	i := 0
 	return func(yield func(string, T) bool) {
+		ks := keys(m)
+		i := 0
 		for {
 			if i >= len(ks) {
 				return
