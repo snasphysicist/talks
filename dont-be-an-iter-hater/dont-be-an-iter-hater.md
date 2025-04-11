@@ -428,7 +428,7 @@ return id
 
 I would argue that the functional approach
 
-- conflates flow control and data transformation less
+- separates flow control and data transformation more nicely
 - reads more like natural language
 - therefore can be faster to understand
 
