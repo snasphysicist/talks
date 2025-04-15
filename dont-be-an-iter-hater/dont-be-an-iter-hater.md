@@ -437,7 +437,7 @@ Your mileage may vary - come discuss after the talk!
 
 # Thanks!
 
-For listening
+For listening and for your questions (shortly!)
 
 Please give brutally honest feedback and criticism
 
