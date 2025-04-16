@@ -1,14 +1,21 @@
 ROOT_DIR="/home/scottsmith/Projects/talks"
 
-cd cognit-go
-npx @marp-team/marp-cli@latest $ROOT_DIR/cognit-go/cognit-go.md \
+docker run \
+  -e MARP_USER="$(id -u):$(id -g)" \
+  --mount type=bind,source=$ROOT_DIR,target=/mnt/talks/ \
+  marpteam/marp-cli \
+  /mnt/talks/cognit-go/cognit-go.md \
   --allow-local-files \
-  -o $ROOT_DIR//cognit-go/cognit-go.html
+  -o /mnt/talks/cognit-go/cognit-go.html
 
-npx @marp-team/marp-cli@latest $ROOT_DIR/cognit-go/cognit-go.md \
+docker run \
+  -e MARP_USER="$(id -u):$(id -g)" \
+  --mount type=bind,source=$ROOT_DIR,target=/mnt/talks/ \
+  marpteam/marp-cli \
+  /mnt/talks/cognit-go/cognit-go.md \
   --allow-local-files \
   --pdf \
-  -o $ROOT_DIR/cognit-go/cognit-go.pdf
+  -o /mnt/talks/cognit-go/cognit-go.pdf
 
 docker run \
   -e MARP_USER="$(id -u):$(id -g)" \
