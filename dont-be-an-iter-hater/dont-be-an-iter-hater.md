@@ -207,11 +207,103 @@ Almost certainly have
 
 ---
 
-# Who Is Executing?
+# Where Are We In The Code?
 
-TODO: diagram passing between for and iterator function
+Can be tricky to know who calls who, who's "controlling" execution
+
+Illustrative sequence of events & call stack
+
+This is to help understand, this is not the _real_ call stack!
+
+I'm sure the runtime/compiler is doing something much cleverer
 
 --- 
+
+# Illustrative Sequence / Call Stack
+
+`RangeOverSliceOneArityMain`
+Enter for range
+`RangeOverSliceOneArityMain > OneArgumentSliceIterator`
+
+---
+
+# Illustrative Sequence / Call Stack
+
+![height:500px](execution-context-step-1.svg)
+
+---
+
+# Illustrative Sequence / Call Stack
+
+`RangeOverSliceOneArityMain`
+Enter for range
+`RangeOverSliceOneArityMain > OneArgumentSliceIterator`
+
+(Anonymous) iterator function returned
+Iterator function called
+`RangeOverSliceOneArityMain > iterator`
+
+---
+
+# Illustrative Sequence / Call Stack
+
+![height:500px](execution-context-step-2.svg)
+
+---
+
+# Illustrative Sequence / Call Stack
+
+...
+(Anonymous) iterator function returned
+Iterator function called
+`RangeOverSliceOneArityMain > iterator`
+
+Iterator calls `yield` (with value `0`)
+`RangeOverSliceOneArityMain > iterator > yield`
+`i` assigned (value `0`), `for` loop body executes
+
+---
+
+# Illustrative Sequence / Call Stack
+
+![height:500px](execution-context-step-3.svg)
+
+---
+
+# Illustrative Sequence / Call Stack
+
+...
+`RangeOverSliceOneArityMain > iterator`
+Iterator calls `yield` (with value `0`)
+`RangeOverSliceOneArityMain > iterator > yield`
+`i` assigned (value `0`), `for` loop body executes
+
+`for` loop body completed
+`yield` returns
+`RangeOverSliceOneArityMain > iterator`
+
+---
+
+# Illustrative Sequence / Call Stack
+
+![height:500px](execution-context-step-4.svg)
+
+---
+
+# Illustrative Sequence / Call Stack
+
+...
+`i` assigned (value `0`), `for` loop body executes
+`for` loop body completed
+`yield` returns
+`RangeOverSliceOneArityMain > iterator`
+
+Iterator calls `yield` (with value `1`)
+`RangeOverSliceOneArityMain > iterator > yield`
+`i` assigned (value `1`), `for` loop body executes
+
+... ad nauseum
+---
 
 # Reimplementing Range Over Slice (Two Valued)
 
