@@ -101,11 +101,11 @@ Elixir & Clojure - it's surprisingly complicated...
 One of three forms
 
 ```go
-func(func yield() bool)
+func(yield func() bool)
 
-func(func yield(k K) bool) -> iter.Seq[K]
+func(yield func(k K) bool) -> iter.Seq[K]
 
-func(func yield(k K, v V) bool) -> iter.Seq2[K, V]
+func(yield func(k K, v V) bool) -> iter.Seq2[K, V]
 ```
 
 ---
