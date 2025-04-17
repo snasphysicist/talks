@@ -295,11 +295,11 @@ Previously: Go, Python, Java, C, etc...</p>
 <h1 id="iterators-in-go-1">Iterators In Go</h1>
 <p>&quot;Iterators&quot; in Go are really just special functions</p>
 <p>One of three forms</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-go"><span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(<span class="hljs-keyword">func</span> yield()</span></span> <span class="hljs-type">bool</span>)
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-go"><span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(yield <span class="hljs-keyword">func</span>()</span></span> <span class="hljs-type">bool</span>)
 
-<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(<span class="hljs-keyword">func</span> yield(k K)</span></span> <span class="hljs-type">bool</span>) -&gt; iter.Seq[K]
+<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(yield <span class="hljs-keyword">func</span>(k K)</span></span> <span class="hljs-type">bool</span>) -&gt; iter.Seq[K]
 
-<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(<span class="hljs-keyword">func</span> yield(k K, v V)</span></span> <span class="hljs-type">bool</span>) -&gt; iter.Seq2[K, V]
+<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(yield <span class="hljs-keyword">func</span>(k K, v V)</span></span> <span class="hljs-type">bool</span>) -&gt; iter.Seq2[K, V]
 </code></pre>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-class="invert" data-style="section {
